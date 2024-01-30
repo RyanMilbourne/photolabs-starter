@@ -21,9 +21,14 @@ const sampleDataForTopicList = [
 ];
 
 const TopicList = () => {
+
+  const data = sampleDataForTopicList.map((item) => (
+    <span className="topic-list__item" key={item.id}>{item.title}</span>
+  ));
+
   return (
     <div className="top-nav-bar__topic-list">
-      {/* Insert React */}
+      {data}
     </div>
   );
 };
