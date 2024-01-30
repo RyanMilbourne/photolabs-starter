@@ -3,9 +3,9 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = (props) => {
-  const mockTopics = props.mockTopics
+  const topics = props.topics
 
-  const data = mockTopics.map((item) => (
+  const data = topics.map((item) => (
     <TopicListItem key={item.id} data={item} />
   ));
 

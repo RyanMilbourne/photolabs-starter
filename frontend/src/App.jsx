@@ -8,7 +8,7 @@ import topics from 'mocks/topics';
 const App = () => {
   return (
     <div className="App">
-      <HomeRoute mockPhotos={photos} mockTopics={topics} />
+      <HomeRoute photos={photos} topics={topics} />
     </div>
   );
 };
