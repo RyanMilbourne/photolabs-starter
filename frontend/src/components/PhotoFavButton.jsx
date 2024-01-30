@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
+import useFavToggle from 'hooks/useFavToggle';
 
-function PhotoFavButton() {
+function PhotoFavButton(props) {
 
-  const [status, setStatus] = useState(false);
+  const { toggleFavourite, favourites } = props;
 
   const handleClick = () => {
-    setStatus(!status);
+    toggleFavourite(props.id);
   }
+
+  const status = favourites.includes(props.id);
 
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={status} />
+        <FavIcon selected={status} status={status} />
       </div>
     </div>
   );
