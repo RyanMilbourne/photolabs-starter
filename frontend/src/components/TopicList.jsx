@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../styles/TopicList.scss";
+import TopicListItem from "./TopicListItem";
 
 const sampleDataForTopicList = [
   {
@@ -23,7 +24,7 @@ const sampleDataForTopicList = [
 const TopicList = () => {
 
   const data = sampleDataForTopicList.map((item) => (
-    <span className="topic-list__item" key={item.id}>{item.title}</span>
+    <TopicListItem key={item.id} data={item} />
   ));
 
   return (
