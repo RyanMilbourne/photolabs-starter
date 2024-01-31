@@ -3,10 +3,10 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const { photos, favourites, toggleFavourite } = props;
+  const { photos, favourites, toggleFavourite, toggleBool } = props;
 
   const data = photos.map((item) => (
-    <li key={item.id}><PhotoListItem data={item} favourites={favourites} toggleFavourite={toggleFavourite} /></li>
+    <li key={item.id}><PhotoListItem data={item} favourites={favourites} toggleFavourite={toggleFavourite} toggleBool={toggleBool} /></li>
   ));
 
   return (

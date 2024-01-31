@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
-import useFavToggle from 'hooks/useFavToggle';
 
 function PhotoFavButton(props) {
 
