@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <PhotoDetailsModal isOpen={bool} />
+      <PhotoDetailsModal isOpen={bool} toggleClose={toggleBool} />
       <HomeRoute photos={photos} topics={topics} toggleModalDisplay={toggleBool} />
     </div>
   );
