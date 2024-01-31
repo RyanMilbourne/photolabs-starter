@@ -6,12 +6,17 @@ import PhotoFavButton from "./PhotoFavButton";
 const PhotoListItem = (props) => {
 
   const { urls, user, location, id } = props.data;
-  const { favourites, toggleFavourite, toggleModalDisplay } = props;
+  const { favourites, toggleFavourite, toggleModalDisplay, handleSelectedPhoto } = props;
+
+  const openPhotoModal = () => {
+    toggleModalDisplay();
+    handleSelectedPhoto(props.data);
+  }
 
   return (
-    < div className="photo-list__item" onClick={toggleModalDisplay} >
+    < div className="photo-list__item">
       <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={id} />
-      <img className="photo-list__image" src={urls.regular}></img>
+      <img className="photo-list__image" src={urls.regular} onClick={openPhotoModal} ></img>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={user.profile}></img>
         <div className="photo-list__user-info">
