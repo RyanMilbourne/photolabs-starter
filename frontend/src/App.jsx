@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className="App">
       <PhotoDetailsModal isOpen={bool} />
-      <HomeRoute photos={photos} topics={topics} toggleBool={toggleBool} />
+      <HomeRoute photos={photos} topics={topics} toggleModalDisplay={toggleBool} />
     </div>
   );
 };
