@@ -5,7 +5,7 @@ import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = (props) => {
 
-  const { urls, user, location, id } = props.data;
+  const { urls, user, location, similar_photos, id } = props.data;
   const { favourites, toggleFavourite, toggleModalDisplay, handleSelectedPhoto } = props;
 
   const openPhotoModal = () => {

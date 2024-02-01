@@ -17,22 +17,42 @@ const App = () => {
   const handleSelectedPhoto = (data) => {
     setSelectedPhoto(data);
     console.log("This is the collected photo data: ", data)
+    console.log("This is the similar_photos: ", data.similar_photos)
   }
+
+  const [favourites, setFavourites] = useState([]);
+
+  const toggleFavourite = (id) => {
+    if (!favourites.includes(id)) {
+      setFavourites(() => [...favourites, id])
+    } else {
+      const copyOfArray = [...favourites].filter(favourite => id !== favourite);
+      setFavourites(copyOfArray);
+    }
+  };
 
   return (
     <div className="App">
-      <PhotoDetailsModal
-        isOpen={bool}
-        toggleClose={toggleBool}
-        photos={photos}
-        selectedPhoto={selectedPhoto}
-      />
+      {selectedPhoto &&
+        <PhotoDetailsModal
+          isOpen={bool}
+          toggleClose={toggleBool}
+          photos={photos}
+          toggleModalDisplay={toggleBool} // added for sim photo
+          handleSelectedPhoto={handleSelectedPhoto} // added for sim photo
+          selectedPhoto={selectedPhoto}
+          favourites={favourites}
+          toggleFavourite={toggleFavourite}
+        />
+      }
 
       <HomeRoute
         photos={photos}
         topics={topics}
         toggleModalDisplay={toggleBool}
         handleSelectedPhoto={handleSelectedPhoto}
+        favourites={favourites}
+        toggleFavourite={toggleFavourite}
       />
     </div>
   );

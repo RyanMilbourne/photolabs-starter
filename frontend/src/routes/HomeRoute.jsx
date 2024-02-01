@@ -4,18 +4,7 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 
 const HomeRoute = (props) => {
-  const { topics, photos, toggleModalDisplay, handleSelectedPhoto } = props;
-
-  const [favourites, setFavourites] = useState([]);
-
-  const toggleFavourite = (id) => {
-    if (!favourites.includes(id)) {
-      setFavourites(() => [...favourites, id])
-    } else {
-      const copyOfArray = [...favourites].filter(favourite => id !== favourite);
-      setFavourites(copyOfArray);
-    }
-  };
+  const { topics, photos, toggleModalDisplay, handleSelectedPhoto, favourites, toggleFavourite } = props;
 
   return (
     <div className="home-route">
