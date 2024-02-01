@@ -1,14 +1,23 @@
 .photo-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  justify-content: space-evenly;
+  gap: 10px;
+  place-items: center;
 }
 
 .photo-list:after {
   content: "";
   flex: 0 1 30%;
   margin: 5px;
+}
+
+.home_photo-gallery {
+  width: 100%;
+}
+
+ul {
+  padding: 0;
 }

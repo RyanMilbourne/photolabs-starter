@@ -21,10 +21,15 @@ const PhotoDetailsModal = (props) => {
           </button >
         </div>
 
-        <div className='photo-details-modal__images'>
-          <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={selectedPhoto.id} />
-          <img className='photo-details-modal__image' src={selectedPhoto.urls.regular} />
-          <div className='photo-details-modal__photographer-details'>
+        <div className='photo-details-hero_body'>
+
+          <div className='photo-details-hero_wrapper'>
+            <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={selectedPhoto.id} />
+            <img className='photo-details-hero_image' src={selectedPhoto.urls.regular} />
+          </div>
+
+
+          <div className='photo-details-hero_footer'>
             <img className='photo-details-modal__photographer-profile' src={selectedPhoto.user.profile} />
             <div className='photo-details-modal__photographer-info'>
               <span>{selectedPhoto.user.name}</span>
@@ -33,12 +38,12 @@ const PhotoDetailsModal = (props) => {
               </div>
             </div>
           </div>
+
         </div>
 
-        <br></br>
 
-        <div className='photo-details-modal__images'>
-          <strong>Similar Photos</strong>
+        <div className='photo-details-similar_photos_wrapper'>
+          Similar Photos
           <div>
             <PhotoList
               photos={similarPhotosArray}

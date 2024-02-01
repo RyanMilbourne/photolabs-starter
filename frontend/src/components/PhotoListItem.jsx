@@ -16,7 +16,7 @@ const PhotoListItem = (props) => {
   return (
     < div className="photo-list__item">
       <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={id} />
-      <img className="photo-list__image" src={urls.regular} onClick={openPhotoModal} ></img>
+      <img className="photo-list__image" src={urls.full} onClick={openPhotoModal} ></img>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={user.profile}></img>
         <div className="photo-list__user-info">

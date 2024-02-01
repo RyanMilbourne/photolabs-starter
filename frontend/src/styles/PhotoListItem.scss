@@ -1,12 +1,17 @@
 .photo-list {
   &__item {
-    margin: 24px;
+    // margin: 24px;
     padding: 8px;
     border-width: 0.5px;
     border-color: lightgray;
     border-style: solid;
     border-radius: 8px;
     max-width: fit-content;
+    cursor: pointer;
+  }
+
+  &__item:hover {
+    transform: scale(1.01);
   }
 
   &__image {

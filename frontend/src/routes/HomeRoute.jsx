@@ -13,13 +13,15 @@ const HomeRoute = (props) => {
         displayAlert={favourites.length > 0}
       />
 
-      <PhotoList
-        photos={photos}
-        favourites={favourites}
-        toggleFavourite={toggleFavourite}
-        toggleModalDisplay={toggleModalDisplay}
-        handleSelectedPhoto={handleSelectedPhoto}
-      />
+      <div className='home_photo-gallery'>
+        <PhotoList
+          photos={photos}
+          favourites={favourites}
+          toggleFavourite={toggleFavourite}
+          toggleModalDisplay={toggleModalDisplay}
+          handleSelectedPhoto={handleSelectedPhoto}
+        />
+      </div>
     </div>
   );
 };

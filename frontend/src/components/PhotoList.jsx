@@ -6,6 +6,7 @@ const PhotoList = (props) => {
   const { photos, favourites, toggleFavourite, toggleModalDisplay, handleSelectedPhoto } = props;
 
   const data = photos.map((item) => (
+
     <li key={item.id}>
       <PhotoListItem
         data={item}

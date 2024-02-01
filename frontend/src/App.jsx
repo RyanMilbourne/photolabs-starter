@@ -38,8 +38,8 @@ const App = () => {
           isOpen={bool}
           toggleClose={toggleBool}
           photos={photos}
-          toggleModalDisplay={toggleBool} // added for sim photo
-          handleSelectedPhoto={handleSelectedPhoto} // added for sim photo
+          toggleModalDisplay={toggleBool}
+          handleSelectedPhoto={handleSelectedPhoto}
           selectedPhoto={selectedPhoto}
           favourites={favourites}
           toggleFavourite={toggleFavourite}
