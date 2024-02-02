@@ -5,31 +5,12 @@ import HomeRoute from 'routes/HomeRoute';
 import photos from 'mocks/photos';
 import topics from 'mocks/topics';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
-
-import useBool from 'hooks/useBool';
+import useApplicationData from 'hooks/useApplicationData';
 
 const App = () => {
 
-  const [bool, toggleBool] = useBool();
+  const { bool, toggleBool, selectedPhoto, handleSelectedPhoto, favourites, toggleFavourite } = useApplicationData();
 
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const handleSelectedPhoto = (data) => {
-    setSelectedPhoto(data);
-    console.log("This is the collected photo data: ", data)
-    console.log("This is the similar_photos: ", data.similar_photos)
-  }
-
-  const [favourites, setFavourites] = useState([]);
-
-  const toggleFavourite = (id) => {
-    if (!favourites.includes(id)) {
-      setFavourites(() => [...favourites, id])
-    } else {
-      const copyOfArray = [...favourites].filter(favourite => id !== favourite);
-      setFavourites(copyOfArray);
-    }
-  };
 
   return (
     <div className="App">
