@@ -7,7 +7,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { isOpen, toggleClose, selectedPhoto, toggleModalDisplay, handleSelectedPhoto, favourites, toggleFavourite } = props;
+  const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, favourites, toggleFavourite } = props;
 
   const similarPhotosArray = Object.values(selectedPhoto.similar_photos);
 
@@ -17,7 +17,7 @@ const PhotoDetailsModal = (props) => {
 
         <div className='photo-details-modal__top-bar'>
           < button className="photo-details-modal__close-button" onClick={toggleClose}>
-            <img src={closeSymbol} alt="close symbol" />
+            <img src={closeSymbol} className="exit_icon" alt="close symbol" />
           </button >
         </div>
 
@@ -49,7 +49,7 @@ const PhotoDetailsModal = (props) => {
               photos={similarPhotosArray}
               favourites={favourites}
               toggleFavourite={toggleFavourite}
-              toggleModalDisplay={toggleModalDisplay}
+              toggleModal={toggleModal}
               handleSelectedPhoto={handleSelectedPhoto}
             />
           </div>

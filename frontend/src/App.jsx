@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
@@ -9,20 +9,19 @@ import useApplicationData from 'hooks/useApplicationData';
 
 const App = () => {
 
-  const { bool, toggleBool, selectedPhoto, handleSelectedPhoto, favourites, toggleFavourite } = useApplicationData();
-
+  const { state, toggleFavourite, toggleModal, handleSelectedPhoto } = useApplicationData();
 
   return (
     <div className="App">
-      {selectedPhoto &&
+      {state.selectedPhoto &&
         <PhotoDetailsModal
-          isOpen={bool}
-          toggleClose={toggleBool}
+          isOpen={toggleModal}
+          toggleClose={() => toggleModal(null)}
           photos={photos}
-          toggleModalDisplay={toggleBool}
+          toggleModal={toggleModal}
           handleSelectedPhoto={handleSelectedPhoto}
-          selectedPhoto={selectedPhoto}
-          favourites={favourites}
+          selectedPhoto={state.selectedPhoto}
+          favourites={state.favourites}
           toggleFavourite={toggleFavourite}
         />
       }
@@ -30,9 +29,9 @@ const App = () => {
       <HomeRoute
         photos={photos}
         topics={topics}
-        toggleModalDisplay={toggleBool}
+        toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
-        favourites={favourites}
+        favourites={state.favourites}
         toggleFavourite={toggleFavourite}
       />
     </div>

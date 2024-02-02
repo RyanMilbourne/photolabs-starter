@@ -1,39 +1,91 @@
-import { useState } from "react";
+import { useReducer } from "react";
 
-const useApplicationData = () => {
-  const [bool, setBool] = useState(false);
+const initialStates = {
+  favourites: [],
+  selectedPhoto: null,
+  showModal: false,
+}
 
-  const toggleBool = () => {
-    setBool((prev) => !prev);
-  };
+const ACTIONS = {
+  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  SELECT_PHOTO: 'SELECT_PHOTO',
+  SHOW_MODAL: 'SHOW_MODAL',
+  CLOSE_MODAL: 'CLOSE_MODAL'
+}
 
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+function reducer(state, action) {
 
-  const handleSelectedPhoto = (data) => {
-    setSelectedPhoto(data);
+  switch (action.type) {
+
+    case ACTIONS.FAV_PHOTO_ADDED:
+      return {
+        ...state,
+        favourites: [...state.favourites, action.payload]
+      };
+
+    case ACTIONS.FAV_PHOTO_REMOVED:
+      const updatedFavourites = state.favourites.filter(favouriteId => favouriteId !== action.payload)
+      return {
+        ...state,
+        favourites: updatedFavourites
+      };
+
+    case ACTIONS.SHOW_MODAL:
+      return {
+        ...state,
+        showModal: true,
+        selectedPhoto: action.payload
+      };
+
+    case ACTIONS.CLOSE_MODAL:
+      return {
+        ...state,
+        showModal: false
+      };
+
+    case ACTIONS.SELECT_PHOTO:
+      return {
+        ...state,
+        selectedPhoto: action.payload
+      };
+
+    default:
+      throw new Error(`Unsupported action type: ${action.type}`);
   }
 
-  const [favourites, setFavourites] = useState([]);
+}
+
+const useApplicationData = () => {
+
+  const [state, dispatch] = useReducer(reducer, initialStates);
 
   const toggleFavourite = (id) => {
-    if (!favourites.includes(id)) {
-      setFavourites(() => [...favourites, id])
+    if (!state.favourites.includes(id)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: id });
     } else {
-      const copyOfArray = [...favourites].filter(favourite => id !== favourite);
-      setFavourites(copyOfArray);
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: id });
     }
   };
 
-  const helperFunctions = {
-    bool,
-    toggleBool,
-    selectedPhoto,
-    handleSelectedPhoto,
-    favourites,
-    toggleFavourite,
-  };
+  const toggleModal = (props) => {
+    if (props === undefined || null) {
+      dispatch({ type: ACTIONS.CLOSE_MODAL, payload: false });
+    } else {
+      dispatch({ type: ACTIONS.SHOW_MODAL, payload: props });
+    }
+  }
 
-  return helperFunctions;
+  const handleSelectedPhoto = (props) => {
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: props });
+  }
+
+  return {
+    state,
+    toggleFavourite,
+    toggleModal,
+    handleSelectedPhoto
+  }
 };
 
 export default useApplicationData;

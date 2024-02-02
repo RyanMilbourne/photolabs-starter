@@ -115,3 +115,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.exit_icon {
+  transition: transform .125s ease-in-out;
+}
+
+.exit_icon:hover {
+  transform: rotate(-90deg);
+  transition: transform .125s ease-in-out;
+}

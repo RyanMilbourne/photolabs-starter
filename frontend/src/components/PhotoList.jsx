@@ -3,7 +3,7 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const { photos, favourites, toggleFavourite, toggleModalDisplay, handleSelectedPhoto } = props;
+  const { photos, favourites, toggleFavourite, toggleModal, handleSelectedPhoto } = props;
 
   const data = photos.map((item) => (
 
@@ -12,7 +12,7 @@ const PhotoList = (props) => {
         data={item}
         favourites={favourites}
         toggleFavourite={toggleFavourite}
-        toggleModalDisplay={toggleModalDisplay}
+        toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
       />
     </li>
