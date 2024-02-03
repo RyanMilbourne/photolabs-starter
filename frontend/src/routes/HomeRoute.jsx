@@ -4,12 +4,13 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 
 const HomeRoute = (props) => {
-  const { topics, photos, toggleModal, handleSelectedPhoto, favourites, toggleFavourite } = props;
+  const { topics, photos, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, loadPhotoByTopic } = props;
 
   return (
     <div className="home-route">
       <TopNavigation
         topics={topics}
+        loadPhotoByTopic={loadPhotoByTopic}
         displayAlert={favourites.length > 0}
       />
 

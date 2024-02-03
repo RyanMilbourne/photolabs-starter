@@ -6,7 +6,8 @@ const initialStates = {
   selectedPhoto: null,
   showModal: false,
   photoData: [],
-  topicData: []
+  topicData: [],
+  photoTopicId: []
 }
 
 const ACTIONS = {
@@ -14,6 +15,7 @@ const ACTIONS = {
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  GET_PHOTOS_BY_TOPIC: 'GET_PHOTOS_BY_TOPIC',
   SELECT_PHOTO: 'SELECT_PHOTO',
   SHOW_MODAL: 'SHOW_MODAL',
   CLOSE_MODAL: 'CLOSE_MODAL'
@@ -58,6 +60,11 @@ function reducer(state, action) {
         ...state,
         topicData: action.payload
       };
+    case ACTIONS.GET_PHOTOS_BY_TOPIC:
+      return {
+        ...state,
+        photoData: action.payload
+      }
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
@@ -100,11 +107,23 @@ const useApplicationData = () => {
       .catch((err) => { console.error("Error fetching data:", err) });
   }, []);
 
+  const loadPhotoByTopic = (id) => {
+    axios.get(`/api/topics/photos/${id}`)
+      .then((res) => {
+        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: res.data });
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data });
+      })
+      .catch((error) => {
+        console.error('Error: ', error)
+      })
+  }
+
   return {
     state,
     toggleFavourite,
     toggleModal,
-    handleSelectedPhoto
+    handleSelectedPhoto,
+    loadPhotoByTopic
   }
 };
 

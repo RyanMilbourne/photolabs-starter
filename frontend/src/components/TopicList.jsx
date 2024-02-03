@@ -3,10 +3,10 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = (props) => {
-  const topics = props.topics
+  const { topics, loadPhotoByTopic } = props
 
   const data = topics.map((item) => (
-    <TopicListItem key={item.id} data={item} />
+    <TopicListItem key={item.id} data={item} loadPhotoByTopic={loadPhotoByTopic} />
   ));
 
   return (
