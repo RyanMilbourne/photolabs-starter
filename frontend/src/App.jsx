@@ -2,8 +2,6 @@ import React from 'react';
 
 import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
-import photos from 'mocks/photos';
-import topics from 'mocks/topics';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'hooks/useApplicationData';
 
@@ -17,7 +15,7 @@ const App = () => {
         <PhotoDetailsModal
           isOpen={toggleModal}
           toggleClose={() => toggleModal(null)}
-          photos={photos}
+          photos={state.photoData}
           toggleModal={toggleModal}
           handleSelectedPhoto={handleSelectedPhoto}
           selectedPhoto={state.selectedPhoto}
@@ -27,8 +25,8 @@ const App = () => {
       }
 
       <HomeRoute
-        photos={photos}
-        topics={topics}
+        photos={state.photoData}
+        topics={state.topicData}
         toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
         favourites={state.favourites}
