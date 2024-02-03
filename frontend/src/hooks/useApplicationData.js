@@ -77,7 +77,7 @@ const useApplicationData = () => {
   };
 
   const toggleModal = (props) => {
-    if (props === undefined || null) {
+    if (null) {
       dispatch({ type: ACTIONS.CLOSE_MODAL, payload: false });
     } else {
       dispatch({ type: ACTIONS.SHOW_MODAL, payload: props });
@@ -89,18 +89,16 @@ const useApplicationData = () => {
   }
 
   useEffect(() => {
-    axios.get('/api/photos')
-      .then((res) => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data })
-      })
-  }, [])
+    const fetchPhotoData = axios.get('/api/photos');
+    const fetchTopicData = axios.get('/api/topics');
 
-  useEffect(() => {
-    axios.get('/api/topics')
-      .then((res) => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: res.data })
+    Promise.all([fetchPhotoData, fetchTopicData])
+      .then(([photoRes, topicRes]) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoRes.data });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicRes.data });
       })
-  })
+      .catch((err) => { console.error("Error fetching data:", err) });
+  }, []);
 
   return {
     state,
