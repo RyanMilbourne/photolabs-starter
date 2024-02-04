@@ -87,6 +87,7 @@ const useApplicationData = () => {
       dispatch({ type: ACTIONS.CLOSE_MODAL, payload: false });
     } else {
       dispatch({ type: ACTIONS.SHOW_MODAL, payload: props });
+      window.scrollTo(0, 0);
     }
   }
 
