@@ -7,7 +7,6 @@ const initialStates = {
   showModal: false,
   photoData: [],
   topicData: [],
-  photoTopicId: []
 }
 
 const ACTIONS = {
