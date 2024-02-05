@@ -16,11 +16,9 @@ const PhotoDetailsModal = (props) => {
       <div className='modal_wrapper'>
         <div className="photo-details-modal">
 
-          <div className='photo-details-modal__top-bar'>
-            < button className="photo-details-modal__close-button" onClick={toggleClose}>
-              <img src={closeSymbol} className="exit_icon" alt="close symbol" />
-            </button >
-          </div>
+          < button className="photo-details-modal__close-button" onClick={toggleClose}>
+            <img src={closeSymbol} className="exit_icon" alt="close symbol" />
+          </button >
 
           <div className='photo-details-hero_body'>
 
