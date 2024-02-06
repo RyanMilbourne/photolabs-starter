@@ -73,6 +73,7 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialStates);
 
+  // like or un-like photo
   const toggleFavourite = (id) => {
     if (!state.favourites.includes(id)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: id });
@@ -81,6 +82,7 @@ const useApplicationData = () => {
     }
   };
 
+  // open or close modal
   const toggleModal = (props) => {
     if (null) {
       dispatch({ type: ACTIONS.CLOSE_MODAL, payload: false });
@@ -89,10 +91,12 @@ const useApplicationData = () => {
     }
   }
 
+  // capture selected photo data
   const handleSelectedPhoto = (props) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: props });
   }
 
+  // connect with backend
   useEffect(() => {
     const fetchPhotoData = axios.get('/api/photos');
     const fetchTopicData = axios.get('/api/topics');

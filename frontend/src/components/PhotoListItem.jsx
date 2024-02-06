@@ -8,6 +8,7 @@ const PhotoListItem = (props) => {
   const { urls, user, location, similar_photos, id } = props.data;
   const { favourites, toggleFavourite, toggleModal, handleSelectedPhoto } = props;
 
+  // when opening modal, open modal and pass selected photo data
   const openPhotoModal = () => {
     toggleModal();
     handleSelectedPhoto(props.data);

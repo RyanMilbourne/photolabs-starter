@@ -5,6 +5,7 @@ import PhotoListItem from "./PhotoListItem";
 const PhotoList = (props) => {
   const { photos, favourites, toggleFavourite, toggleModal, handleSelectedPhoto } = props;
 
+  // create list item for each photo
   const data = photos.map((item) => (
     <li key={item.id}>
       <PhotoListItem
