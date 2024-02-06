@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
@@ -29,11 +29,21 @@ const PhotoDetailsModal = (props) => {
     window.open(url, '_blank')
   }
 
+  // set reference to DOM element for later use
+  const modalRef = useRef(null);
+
+  // Scroll to the top of Modal when similar photo is selected
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      modalRef.current.scrollTop = 0;
+    }
+  }, [isOpen]);
+
   return (
     isOpen ?
       <div className='modal_wrapper'>
 
-        <div className="photo-details-modal">
+        <div className="photo-details-modal" ref={modalRef}>
 
           < button className="photo-details-modal__close-button" onClick={toggleClose}>
             <img src={closeSymbol} className="exit_icon" alt="close symbol" />
