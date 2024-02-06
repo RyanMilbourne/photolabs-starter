@@ -1,5 +1,5 @@
 # react-photolabs
-![photoLabs mockup](/frontend/public/photolabs%20-%20mockup.jpg)
+![photoLabs mockup](/docs/photolabs%20-%20mockup.jpg)
 The PhotoLabs project for the LHL Web Development React course programming.
 
 # Photolabs
@@ -29,9 +29,9 @@ npm start
 ```
 
 ## Screenshots
-![photoLabs screenshot 1](/frontend/public/photolabs%20-%201.jpg)
-![photoLabs screenshot 2](/frontend/public/photolabs%20-%202.jpg)
-![photoLabs screenshot 3](/frontend/public/photolabs%20-%204.jpg)
+![photoLabs screenshot 1](/docs/photolabs%20-%201.jpg)
+![photoLabs screenshot 2](/docs/photolabs%20-%202.jpg)
+![photoLabs screenshot 3](/docs/photolabs%20-%204.jpg)
 
 
 _This project was built for educational purposes only_
