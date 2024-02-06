@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoListItem from 'components/PhotoListItem';
 import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
+import photos from 'mocks/photos';
 
 const PhotoDetailsModal = (props) => {
-  const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, favourites, toggleFavourite } = props;
+  const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, photos } = props;
 
-  const similarPhotosArray = Object.values(selectedPhoto.similar_photos);
+  // define the selected photos "similar photos"
+  const similarPhotos = selectedPhoto.similar_photos;
+
+  // filter the "similar photos" against the "photos" array
+  const matchSimilarPhotos = (photoId) => {
+    return similarPhotos.filter((photo) => photo.id === photoId);
+  };
+
+  // create a new array object (including all properties of photo)
+  const similarPhotosArray = photos.map((photo) => ({
+    ...photo,
+    similarPhotos: matchSimilarPhotos(photo.id),
+  })).filter((photo) => photo.similarPhotos.length > 0);
 
   return (
     isOpen ?
       <div className='modal_wrapper'>
+
         <div className="photo-details-modal">
 
           < button className="photo-details-modal__close-button" onClick={toggleClose}>
@@ -53,7 +67,9 @@ const PhotoDetailsModal = (props) => {
               />
             </div>
           </div>
+
         </div >
+
       </div>
       : null
   )

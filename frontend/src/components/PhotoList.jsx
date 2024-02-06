@@ -6,7 +6,6 @@ const PhotoList = (props) => {
   const { photos, favourites, toggleFavourite, toggleModal, handleSelectedPhoto } = props;
 
   const data = photos.map((item) => (
-
     <li key={item.id}>
       <PhotoListItem
         data={item}
@@ -16,7 +15,6 @@ const PhotoList = (props) => {
         handleSelectedPhoto={handleSelectedPhoto}
       />
     </li>
-
   ));
 
   return (

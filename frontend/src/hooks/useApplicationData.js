@@ -71,7 +71,6 @@ function reducer(state, action) {
 
 const useApplicationData = () => {
 
-
   const [state, dispatch] = useReducer(reducer, initialStates);
 
   const toggleFavourite = (id) => {
