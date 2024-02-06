@@ -4,7 +4,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
   justify-content: space-evenly;
-  gap: 10px;
+  gap: 16px;
   place-items: center;
 }
 
@@ -20,4 +20,8 @@
 
 ul {
   padding: 0;
+}
+
+li {
+  width: 100%;
 }

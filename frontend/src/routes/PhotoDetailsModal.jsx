@@ -24,6 +24,11 @@ const PhotoDetailsModal = (props) => {
     similarPhotos: matchSimilarPhotos(photo.id),
   })).filter((photo) => photo.similarPhotos.length > 0);
 
+  // allow user to click image to view full-resolution image
+  const openImageNewTab = (url) => {
+    window.open(url, '_blank')
+  }
+
   return (
     isOpen ?
       <div className='modal_wrapper'>
@@ -38,7 +43,9 @@ const PhotoDetailsModal = (props) => {
 
             <div className='photo-details-hero_wrapper'>
               <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={selectedPhoto.id} />
-              <img className='photo-details-hero_image' src={selectedPhoto.urls.regular} />
+              <div className="hero-image_wrapper">
+                <img className='photo-details-hero_image' src={selectedPhoto.urls.full} onClick={() => openImageNewTab(selectedPhoto.urls.full)} />
+              </div>
             </div>
 
 
