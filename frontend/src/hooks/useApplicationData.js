@@ -1,6 +1,5 @@
 import { useReducer, useEffect } from "react";
 import axios from 'axios';
-import photos from "mocks/photos";
 
 const initialStates = {
   favourites: [],
