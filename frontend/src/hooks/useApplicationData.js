@@ -1,8 +1,10 @@
 import { useReducer, useEffect } from "react";
 import axios from 'axios';
+import photos from "mocks/photos";
 
 const initialStates = {
   favourites: [],
+  openFavourites: false,
   selectedPhoto: null,
   showModal: false,
   photoData: [],
@@ -17,7 +19,9 @@ const ACTIONS = {
   GET_PHOTOS_BY_TOPIC: 'GET_PHOTOS_BY_TOPIC',
   SELECT_PHOTO: 'SELECT_PHOTO',
   SHOW_MODAL: 'SHOW_MODAL',
-  CLOSE_MODAL: 'CLOSE_MODAL'
+  CLOSE_MODAL: 'CLOSE_MODAL',
+  OPEN_FAV_STATE: 'OPEN_FAV_STATE',
+  DISPLAY_FAV_PHOTOS: 'DISPLAY_FAV_PHOTOS'
 }
 
 function reducer(state, action) {
@@ -33,6 +37,16 @@ function reducer(state, action) {
         ...state,
         favourites: updatedFavourites
       };
+    case ACTIONS.OPEN_FAV_STATE:
+      return {
+        ...state,
+        openFavourites: action.payload
+      };
+    case ACTIONS.DISPLAY_FAV_PHOTOS:
+      return {
+        ...state,
+        favourites: action.payload
+      }
     case ACTIONS.SHOW_MODAL:
       return {
         ...state,
@@ -74,11 +88,14 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialStates);
 
   // like or un-like photo
-  const toggleFavourite = (id) => {
-    if (!state.favourites.includes(id)) {
-      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: id });
+  const toggleFavourite = (photo) => {
+    if (state.favourites.includes(photo)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photo });
+      if (state.favourites.length <= 1) {
+        dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
+      }
     } else {
-      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: id });
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photo });
     }
   };
 
@@ -94,6 +111,14 @@ const useApplicationData = () => {
   // capture selected photo data
   const handleSelectedPhoto = (props) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: props });
+  }
+
+  // display photos marked 'favourite'
+  const showFavouritedPhotos = () => {
+    if (state.favourites.length > 0) {
+      dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: true });
+      dispatch({ type: ACTIONS.DISPLAY_FAV_PHOTOS, payload: state.favourites });
+    }
   }
 
   // connect with backend
@@ -114,6 +139,7 @@ const useApplicationData = () => {
       .then((res) => {
         dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: res.data });
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data });
+        dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
       })
       .catch((error) => {
         console.error('Error: ', error)
@@ -125,7 +151,8 @@ const useApplicationData = () => {
     toggleFavourite,
     toggleModal,
     handleSelectedPhoto,
-    loadPhotoByTopic
+    loadPhotoByTopic,
+    showFavouritedPhotos
   }
 };
 

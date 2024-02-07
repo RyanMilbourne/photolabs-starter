@@ -14,6 +14,7 @@ const PhotoList = (props) => {
         toggleFavourite={toggleFavourite}
         toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
+        photos={photos}
       />
     </li>
   ));

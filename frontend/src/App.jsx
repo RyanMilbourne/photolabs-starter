@@ -7,7 +7,7 @@ import useApplicationData from 'hooks/useApplicationData';
 
 const App = () => {
 
-  const { state, toggleFavourite, toggleModal, handleSelectedPhoto, loadPhotoByTopic } = useApplicationData();
+  const { state, toggleFavourite, toggleModal, handleSelectedPhoto, loadPhotoByTopic, showFavouritedPhotos } = useApplicationData();
 
   return (
     <div className="App">
@@ -25,13 +25,14 @@ const App = () => {
       }
 
       <HomeRoute
-        photos={state.photoData}
+        photos={state.openFavourites ? state.favourites : state.photoData}
         topics={state.topicData}
         loadPhotoByTopic={loadPhotoByTopic}
         toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
         favourites={state.favourites}
         toggleFavourite={toggleFavourite}
+        showFavouritedPhotos={showFavouritedPhotos}
       />
     </div>
   );

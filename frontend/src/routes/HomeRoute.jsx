@@ -4,7 +4,7 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 
 const HomeRoute = (props) => {
-  const { topics, photos, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, loadPhotoByTopic } = props;
+  const { topics, photos, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, loadPhotoByTopic, showFavouritedPhotos } = props;
 
   return (
     <div className="home-route">
@@ -12,6 +12,8 @@ const HomeRoute = (props) => {
         topics={topics}
         loadPhotoByTopic={loadPhotoByTopic}
         displayAlert={favourites.length > 0}
+        favourites={favourites}
+        showFavouritedPhotos={showFavouritedPhotos}
       />
 
       <div className='home_photo-gallery'>

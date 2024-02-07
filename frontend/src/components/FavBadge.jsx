@@ -4,11 +4,14 @@ import FavIcon from './FavIcon';
 import '../styles/FavBadge.scss';
 
 const FavBadge = (props) => {
-  const { displayAlert } = props;
+  const { displayAlert, showFavouritedPhotos } = props;
 
   return (
-    <div className='fav-badge'>
-      <FavIcon displayAlert={displayAlert} selected={displayAlert} />
+    <div className='fav-badge' onClick={showFavouritedPhotos}>
+      <FavIcon
+        displayAlert={displayAlert}
+        selected={displayAlert}
+      />
     </div>
   )
 };

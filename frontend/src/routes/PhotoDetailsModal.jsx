@@ -8,21 +8,12 @@ import PhotoFavButton from 'components/PhotoFavButton';
 const PhotoDetailsModal = (props) => {
   const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, photos } = props;
 
-  // define the selected photos "similar photos"
-  const similarPhotos = selectedPhoto.similar_photos;
 
-  // filter the "similar photos" against the "photos" array
-  const matchSimilarPhotos = (photoId) => {
-    return similarPhotos.filter((photo) => photo.id === photoId);
-  };
+  const photoArray = selectedPhoto.similar_photos ? Object.values(selectedPhoto.similar_photos).map((photo) => photo.id) : []
 
-  // create a new array object (including all properties of photo)
-  const similarPhotosArray = photos.map((photo) => ({
-    ...photo,
-    similarPhotos: matchSimilarPhotos(photo.id),
-  })).filter((photo) => photo.similarPhotos.length > 0);
+  const similarPhotos = photos.filter(photo => photoArray.includes(photo.id));
 
-  // allow user to click image to view full-resolution image
+  // allow user to click image to view full-resolution image in new tab
   const openImageNewTab = (url) => {
     window.open(url, '_blank')
   }
@@ -50,7 +41,7 @@ const PhotoDetailsModal = (props) => {
           <div className='photo-details-hero_body'>
 
             <div className='photo-details-hero_wrapper'>
-              <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} id={selectedPhoto.id} />
+              <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} photo={selectedPhoto} />
               <div className="hero-image_wrapper">
                 <img className='photo-details-hero_image' src={selectedPhoto.urls.full} onClick={() => openImageNewTab(selectedPhoto.urls.full)} />
               </div>
@@ -74,7 +65,7 @@ const PhotoDetailsModal = (props) => {
             Similar Photos
             <div>
               <PhotoList
-                photos={similarPhotosArray}
+                photos={similarPhotos}
                 favourites={favourites}
                 toggleFavourite={toggleFavourite}
                 toggleModal={toggleModal}
