@@ -20,7 +20,7 @@ const ACTIONS = {
   SHOW_MODAL: 'SHOW_MODAL',
   CLOSE_MODAL: 'CLOSE_MODAL',
   OPEN_FAV_STATE: 'OPEN_FAV_STATE',
-  DISPLAY_FAV_PHOTOS: 'DISPLAY_FAV_PHOTOS'
+  DISPLAY_FAV_PHOTOS: 'DISPLAY_FAV_PHOTOS',
 }
 
 function reducer(state, action) {
@@ -31,10 +31,9 @@ function reducer(state, action) {
         favourites: [...state.favourites, action.payload]
       };
     case ACTIONS.FAV_PHOTO_REMOVED:
-      const updatedFavourites = state.favourites.filter(favouriteId => favouriteId !== action.payload)
       return {
         ...state,
-        favourites: updatedFavourites
+        favourites: state.favourites.filter(favourite => favourite !== action.payload)
       };
     case ACTIONS.OPEN_FAV_STATE:
       return {
@@ -70,12 +69,12 @@ function reducer(state, action) {
     case ACTIONS.SET_TOPIC_DATA:
       return {
         ...state,
-        topicData: action.payload
+        topicData: action.payload,
       };
     case ACTIONS.GET_PHOTOS_BY_TOPIC:
       return {
         ...state,
-        photoData: action.payload
+        photoData: action.payload,
       }
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
@@ -89,11 +88,13 @@ const useApplicationData = () => {
   // like or un-like photo
   const toggleFavourite = (photo) => {
     if (state.favourites.includes(photo)) {
+      console.log("removing from favourites")
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photo });
       if (state.favourites.length <= 1) {
         dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
       }
     } else {
+      console.log("adding to favourites")
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photo });
     }
   };
@@ -127,17 +128,18 @@ const useApplicationData = () => {
 
     Promise.all([fetchPhotoData, fetchTopicData])
       .then(([photoRes, topicRes]) => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoRes.data });
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicRes.data });
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoRes.data });
       })
       .catch((err) => { console.error("Error fetching data:", err) });
   }, []);
 
   const loadPhotoByTopic = (id) => {
+
     axios.get(`/api/topics/photos/${id}`)
       .then((res) => {
+        console.log("This is state.favourites: ", state.favourites)
         dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: res.data });
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data });
         dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
       })
       .catch((error) => {

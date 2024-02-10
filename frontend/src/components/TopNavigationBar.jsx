@@ -5,7 +5,7 @@ import TopicList from './TopicList';
 import FavBadge from './FavBadge';
 
 const TopNavigation = (props) => {
-  const { topics, displayAlert, loadPhotoByTopic, favourites, showFavouritedPhotos } = props;
+  const { topics, displayAlert, loadPhotoByTopic, favourites, showFavouritedPhotos, loadHomePage } = props;
 
   return (
     <div className="top-nav-bar">

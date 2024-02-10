@@ -7,7 +7,7 @@ import useApplicationData from 'hooks/useApplicationData';
 
 const App = () => {
 
-  const { state, toggleFavourite, toggleModal, handleSelectedPhoto, loadPhotoByTopic, showFavouritedPhotos } = useApplicationData();
+  const { state, toggleFavourite, toggleModal, handleSelectedPhoto, loadPhotoByTopic, showFavouritedPhotos, loadHomePage } = useApplicationData();
 
   return (
     <div className="App">
@@ -33,6 +33,7 @@ const App = () => {
         favourites={state.favourites}
         toggleFavourite={toggleFavourite}
         showFavouritedPhotos={showFavouritedPhotos}
+        loadHomePage={loadHomePage}
       />
     </div>
   );

@@ -5,8 +5,8 @@ import TopicListItem from "./TopicListItem";
 const TopicList = (props) => {
   const { topics, loadPhotoByTopic } = props
 
-  const data = topics.map((item) => (
-    <TopicListItem key={item.id} data={item} loadPhotoByTopic={loadPhotoByTopic} />
+  const data = topics.map((topic) => (
+    <TopicListItem key={topic.id} data={topic} id={topic.id} title={topic.title} loadPhotoByTopic={loadPhotoByTopic} />
   ));
 
   return (
