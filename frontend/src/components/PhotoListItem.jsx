@@ -6,7 +6,7 @@ import PhotoFavButton from "./PhotoFavButton";
 const PhotoListItem = (props) => {
 
   const { urls, user, location, similar_photos, id } = props.data;
-  const { favourites, toggleFavourite, toggleModal, handleSelectedPhoto, photos, data } = props;
+  const { likes, toggleLike, toggleModal, handleSelectedPhoto, photos, data } = props;
 
   // when opening modal, open modal and pass selected photo data
   const openPhotoModal = () => {
@@ -16,7 +16,7 @@ const PhotoListItem = (props) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} photo={data} />
+      <PhotoFavButton likes={likes} toggleLike={toggleLike} photo={data} />
       <img className="photo-list__image" src={urls.full} onClick={openPhotoModal}></img>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={user.profile}></img>

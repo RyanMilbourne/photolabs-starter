@@ -6,7 +6,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, favourites, toggleFavourite, photos } = props;
+  const { isOpen, toggleClose, selectedPhoto, toggleModal, handleSelectedPhoto, likes, toggleLike, photos } = props;
 
 
   const photoArray = selectedPhoto.similar_photos ? Object.values(selectedPhoto.similar_photos).map((photo) => photo.id) : []
@@ -41,7 +41,7 @@ const PhotoDetailsModal = (props) => {
           <div className='photo-details-hero_body'>
 
             <div className='photo-details-hero_wrapper'>
-              <PhotoFavButton favourites={favourites} toggleFavourite={toggleFavourite} photo={selectedPhoto} />
+              <PhotoFavButton likes={likes} toggleLike={toggleLike} photo={selectedPhoto} />
               <div className="hero-image_wrapper">
                 <img className='photo-details-hero_image' src={selectedPhoto.urls.full} onClick={() => openImageNewTab(selectedPhoto.urls.full)} />
               </div>
@@ -66,8 +66,8 @@ const PhotoDetailsModal = (props) => {
             <div>
               <PhotoList
                 photos={similarPhotos}
-                favourites={favourites}
-                toggleFavourite={toggleFavourite}
+                likes={likes}
+                toggleLike={toggleLike}
                 toggleModal={toggleModal}
                 handleSelectedPhoto={handleSelectedPhoto}
               />

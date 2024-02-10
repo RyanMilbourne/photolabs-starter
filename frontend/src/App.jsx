@@ -7,7 +7,7 @@ import useApplicationData from 'hooks/useApplicationData';
 
 const App = () => {
 
-  const { state, toggleFavourite, toggleModal, handleSelectedPhoto, loadPhotoByTopic, showFavouritedPhotos, loadHomePage } = useApplicationData();
+  const { state, toggleLike, toggleModal, handleSelectedPhoto, showFavouritedPhotos, getPhotosByTopic, getAllPhotos } = useApplicationData();
 
   return (
     <div className="App">
@@ -19,21 +19,21 @@ const App = () => {
           toggleModal={toggleModal}
           handleSelectedPhoto={handleSelectedPhoto}
           selectedPhoto={state.selectedPhoto}
-          favourites={state.favourites}
-          toggleFavourite={toggleFavourite}
+          likes={state.likes}
+          toggleLike={toggleLike}
         />
       }
 
       <HomeRoute
-        photos={state.openFavourites ? state.favourites : state.photoData}
+        photos={state.openFavourites ? state.likes : state.photoData}
         topics={state.topicData}
-        loadPhotoByTopic={loadPhotoByTopic}
         toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
-        favourites={state.favourites}
-        toggleFavourite={toggleFavourite}
+        likes={state.likes}
+        toggleLike={toggleLike}
         showFavouritedPhotos={showFavouritedPhotos}
-        loadHomePage={loadHomePage}
+        getPhotosByTopic={getPhotosByTopic}
+        getAllPhotos={getAllPhotos}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const { photos, favourites, toggleFavourite, toggleModal, handleSelectedPhoto } = props;
+  const { photos, likes, toggleLike, toggleModal, handleSelectedPhoto } = props;
 
   // create list item for each photo
   const data = photos.map((photo) => (
@@ -11,8 +11,8 @@ const PhotoList = (props) => {
       <PhotoListItem
         key={photo.id}
         data={photo}
-        favourites={favourites}
-        toggleFavourite={toggleFavourite}
+        likes={likes}
+        toggleLike={toggleLike}
         toggleModal={toggleModal}
         handleSelectedPhoto={handleSelectedPhoto}
         photos={photos}

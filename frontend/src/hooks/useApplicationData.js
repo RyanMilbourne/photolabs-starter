@@ -2,12 +2,14 @@ import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
 const initialStates = {
-  favourites: [],
+  likes: [],
   openFavourites: false,
   selectedPhoto: null,
   showModal: false,
   photoData: [],
   topicData: [],
+  backToHome: false,
+  selectedTopic: null
 }
 
 const ACTIONS = {
@@ -21,6 +23,8 @@ const ACTIONS = {
   CLOSE_MODAL: 'CLOSE_MODAL',
   OPEN_FAV_STATE: 'OPEN_FAV_STATE',
   DISPLAY_FAV_PHOTOS: 'DISPLAY_FAV_PHOTOS',
+  SELECT_TOPIC: 'SELECT_TOPIC'
+
 }
 
 function reducer(state, action) {
@@ -28,12 +32,12 @@ function reducer(state, action) {
     case ACTIONS.FAV_PHOTO_ADDED:
       return {
         ...state,
-        favourites: [...state.favourites, action.payload]
+        likes: [...state.likes, action.payload]
       };
     case ACTIONS.FAV_PHOTO_REMOVED:
       return {
         ...state,
-        favourites: state.favourites.filter(favourite => favourite !== action.payload)
+        likes: state.likes.filter(favourite => favourite !== action.payload)
       };
     case ACTIONS.OPEN_FAV_STATE:
       return {
@@ -43,7 +47,7 @@ function reducer(state, action) {
     case ACTIONS.DISPLAY_FAV_PHOTOS:
       return {
         ...state,
-        favourites: action.payload
+        likes: action.payload
       }
     case ACTIONS.SHOW_MODAL:
       return {
@@ -76,6 +80,11 @@ function reducer(state, action) {
         ...state,
         photoData: action.payload,
       }
+    case ACTIONS.SELECT_TOPIC:
+      return {
+        ...state,
+        selectedTopic: action.payload
+      };
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
@@ -86,15 +95,15 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialStates);
 
   // like or un-like photo
-  const toggleFavourite = (photo) => {
-    if (state.favourites.includes(photo)) {
-      console.log("removing from favourites")
+  const toggleLike = (photo) => {
+    if (state.likes.includes(photo)) {
+      console.log("removing from likes")
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photo });
-      if (state.favourites.length <= 1) {
+      if (state.likes.length <= 1) {
         dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
       }
     } else {
-      console.log("adding to favourites")
+      console.log("adding to likes")
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photo });
     }
   };
@@ -115,45 +124,55 @@ const useApplicationData = () => {
 
   // display photos marked 'favourite'
   const showFavouritedPhotos = () => {
-    if (state.favourites.length > 0) {
+    if (state.likes.length > 0) {
       dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: true });
-      dispatch({ type: ACTIONS.DISPLAY_FAV_PHOTOS, payload: state.favourites });
+      dispatch({ type: ACTIONS.DISPLAY_FAV_PHOTOS, payload: state.likes });
     }
   }
 
-  // connect with backend
-  useEffect(() => {
-    const fetchPhotoData = axios.get('/api/photos');
-    const fetchTopicData = axios.get('/api/topics');
-
-    Promise.all([fetchPhotoData, fetchTopicData])
-      .then(([photoRes, topicRes]) => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicRes.data });
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoRes.data });
+  // get all photos
+  const getAllPhotos = () => {
+    axios.get(`/api/photos`)
+      .then(res => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data })
       })
-      .catch((err) => { console.error("Error fetching data:", err) });
+  };
+
+  useEffect(() => {
+    getAllPhotos();
   }, []);
 
-  const loadPhotoByTopic = (id) => {
+  // get all topics
+  useEffect(() => {
+    axios.get(`/api/topics`)
+      .then(res => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: res.data })
+      });
+  }, []);
 
-    axios.get(`/api/topics/photos/${id}`)
-      .then((res) => {
-        console.log("This is state.favourites: ", state.favourites)
-        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: res.data });
-        dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
-      })
-      .catch((error) => {
-        console.error('Error: ', error)
-      })
-  }
+
+  // get corresponding photos for topic
+  const getPhotosByTopic = topicId => dispatch({ type: ACTIONS.SELECT_TOPIC, payload: topicId });
+
+  useEffect(() => {
+    if (state.selectedTopic) {
+      axios.get(`/api/topics/photos/${state.selectedTopic}`)
+        .then(res => {
+          const photosByTopic = res.data;
+          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosByTopic })
+          dispatch({ type: ACTIONS.OPEN_FAV_STATE, payload: false });
+        });
+    }
+  }, [state.selectedTopic]);
 
   return {
     state,
-    toggleFavourite,
+    toggleLike,
     toggleModal,
     handleSelectedPhoto,
-    loadPhotoByTopic,
-    showFavouritedPhotos
+    showFavouritedPhotos,
+    getPhotosByTopic,
+    getAllPhotos
   }
 };
 

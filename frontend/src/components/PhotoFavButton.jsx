@@ -5,13 +5,13 @@ import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
 
-  const { toggleFavourite, favourites, photo } = props;
+  const { likes, photo, toggleLike } = props;
 
   const handleClick = () => {
-    toggleFavourite(photo);
+    toggleLike(photo);
   }
 
-  const isFavourite = favourites.some((fav) => fav.id === photo.id)
+  const isFavourite = likes.some((fav) => fav.id === photo.id)
 
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>
